@@ -12,7 +12,12 @@ export async function safeSanityFetch<T>(
       next: { revalidate: 60 },
     });
   } catch (error) {
-    console.error("Sanity fetch failed", error);
+    if (process.env.NODE_ENV !== "production") {
+      console.warn(
+        "Sanity no está disponible; se muestra el contenido de reserva.",
+        error instanceof Error ? error.message : "",
+      );
+    }
     return fallback;
   }
 }

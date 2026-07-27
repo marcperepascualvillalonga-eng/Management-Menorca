@@ -1,7 +1,5 @@
 import type { StructureResolver } from "sanity/structure";
 
-const singletonTypes = new Set(["siteSettings"]);
-
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Contenido")
@@ -24,11 +22,3 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("faqItem").title("FAQs"),
       S.documentTypeListItem("heroSlide").title("Hero"),
     ]);
-
-export const singletonActions = (
-  actions: string[],
-  context: { schemaType: string },
-) =>
-  singletonTypes.has(context.schemaType)
-    ? actions.filter((action) => ["publish", "discardChanges", "restore"].includes(action))
-    : actions;
