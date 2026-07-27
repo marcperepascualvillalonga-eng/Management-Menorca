@@ -1,101 +1,34 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { defineField, defineType } from "sanity";
 
 export const eventType = defineType({
   name: "event",
-  title: "Esdeveniment",
+  title: "Evento",
   type: "document",
   fields: [
-    defineField({
-      name: "title",
-      title: "Títol",
-      type: "string",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "title", maxLength: 96 },
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "eventType",
-      title: "Tipus d'esdeveniment",
-      type: "reference",
-      to: [{ type: "eventType" }],
-    }),
-    defineField({
-      name: "startDate",
-      title: "Data d'inici",
-      type: "datetime",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "endDate",
-      title: "Data de finalització",
-      type: "datetime",
-      validation: (rule) =>
-        rule.min(rule.valueOfField("startDate")).warning(
-          "La data de finalització ha de ser posterior a la d'inici.",
-        ),
-    }),
-    defineField({
-      name: "venue",
-      title: "Espai",
-      type: "string",
-    }),
-    defineField({
-      name: "location",
-      title: "Ubicació",
-      type: "string",
-    }),
-    defineField({
-      name: "artists",
-      title: "Artistes",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "reference",
-          to: [{ type: "artist" }],
-        }),
-      ],
-    }),
-    defineField({
-      name: "description",
-      title: "Descripció",
-      type: "array",
-      of: [defineArrayMember({ type: "block" })],
-    }),
-    defineField({
-      name: "image",
-      title: "Imatge",
-      type: "image",
-      options: { hotspot: true },
-    }),
-    defineField({
-      name: "published",
-      title: "Publicat",
-      type: "boolean",
-      initialValue: false,
-    }),
+    defineField({ name: "title", title: "Título", type: "string", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (rule) => rule.required() }),
+    defineField({ name: "artist", title: "Artista", type: "reference", to: [{ type: "artist" }] }),
+    defineField({ name: "startDate", title: "Inicio", type: "datetime", validation: (rule) => rule.required() }),
+    defineField({ name: "endDate", title: "Final", type: "datetime", validation: (rule) => rule.min(rule.valueOfField("startDate")) }),
+    defineField({ name: "venue", title: "Espacio", type: "string" }),
+    defineField({ name: "locality", title: "Municipio", type: "string" }),
+    defineField({ name: "island", title: "Isla", type: "string", initialValue: "Menorca" }),
+    defineField({ name: "address", title: "Dirección", type: "string" }),
+    defineField({ name: "publicEvent", title: "Evento público", type: "boolean", initialValue: false }),
+    defineField({ name: "eventStatus", title: "Estado del evento", type: "string", options: { list: [{ title: "Programado", value: "scheduled" }, { title: "Pospuesto", value: "postponed" }, { title: "Cancelado", value: "cancelled" }] }, initialValue: "scheduled" }),
+    defineField({ name: "ticketStatus", title: "Entradas", type: "string", options: { list: ["Disponible", "Entradas", "Agotado", "Gratuito", "Información"] } }),
+    defineField({ name: "ticketUrl", title: "URL de entradas", type: "url" }),
+    defineField({ name: "externalInfoUrl", title: "URL de información", type: "url" }),
+    defineField({ name: "image", title: "Imagen", type: "image", options: { hotspot: true }, fields: [defineField({ name: "alt", title: "Texto alternativo", type: "string" })] }),
+    defineField({ name: "description", title: "Descripción", type: "text", rows: 4 }),
+    defineField({ name: "featured", title: "Destacado", type: "boolean", initialValue: false }),
+    defineField({ name: "seoTitle", title: "Título SEO", type: "string", validation: (rule) => rule.max(60) }),
+    defineField({ name: "seoDescription", title: "Descripción SEO", type: "text", rows: 3, validation: (rule) => rule.max(160) }),
   ],
   preview: {
-    select: {
-      title: "title",
-      subtitle: "startDate",
-      media: "image",
-    },
-    prepare({ title, subtitle, media }) {
-      return {
-        title,
-        subtitle: subtitle
-          ? new Intl.DateTimeFormat("ca-ES", {
-              dateStyle: "medium",
-              timeStyle: "short",
-            }).format(new Date(subtitle))
-          : "Sense data",
-        media,
-      };
+    select: { title: "title", date: "startDate", publicEvent: "publicEvent", media: "image" },
+    prepare({ title, date, publicEvent, media }) {
+      return { title, media, subtitle: `${date ? new Date(date).toLocaleDateString("es-ES") : "Sin fecha"} · ${publicEvent ? "Público" : "Privado"}` };
     },
   },
 });
