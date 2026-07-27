@@ -7,12 +7,14 @@ import { notFound } from "next/navigation";
 import { ArtistCard } from "@/components/artists/artist-card";
 import { VideoEmbed } from "@/components/artists/video-embed";
 import { ContactCta } from "@/components/sections/contact-cta";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { urlFor } from "@/sanity/lib/image";
 import { safeSanityFetch } from "@/sanity/lib/fetch";
 import { artistBySlugQuery, artistSlugsQuery } from "@/sanity/queries/content";
 import type { Artist } from "@/types/content";
 import { createMetadata } from "@/utils/metadata";
+import { siteUrl } from "@/config/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -40,6 +42,16 @@ export default async function ArtistPage({ params }: Props) {
 
   return (
     <main id="main-content">
+      {artist.artistKind === "person" || artist.artistKind === "musicGroup" ? (
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": artist.artistKind === "person" ? "Person" : "MusicGroup",
+          name: artist.name,
+          description: artist.shortDescription,
+          url: new URL(`/artistas/${slug}`, siteUrl).toString(),
+          genre: artist.musicGenres,
+        }} />
+      ) : null}
       <section className="artist-profile-hero">
         <div className="container">
           <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: "Artistas", href: "/artistas" }, { label: artist.name }]} />

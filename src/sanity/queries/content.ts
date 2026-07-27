@@ -26,7 +26,7 @@ export const featuredArtistsQuery = defineQuery(`*[_type == "artist" && status =
 }`);
 
 export const artistBySlugQuery = defineQuery(`*[_type == "artist" && status == "published" && slug.current == $slug][0]{
-  _id, name, "slug": slug.current, shortDescription, biography, mainImage, gallery,
+  _id, name, artistKind, "slug": slug.current, shortDescription, biography, mainImage, gallery,
   relationshipType, "categories": artistCategories[]->{title, "slug": slug.current},
   musicGenres, "eventTypes": eventTypes[]->{title, "slug": slug.current},
   availableFormats, languages, territory, videoUrl, spotifyUrl,

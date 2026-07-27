@@ -63,6 +63,20 @@ export function ServiceLanding({
               { "@type": "ListItem", position: 2, name: title, item: absoluteUrl },
             ],
           },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs
+              .filter((item) => typeof item.answer === "string")
+              .map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
+                },
+              })),
+          },
         ]}
       />
       <section className="page-hero">

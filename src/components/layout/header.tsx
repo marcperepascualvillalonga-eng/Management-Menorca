@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { NavigationItem } from "@/types/content";
 
@@ -12,17 +12,39 @@ type HeaderProps = {
 
 export function Header({ name, navigation }: HeaderProps) {
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileNavRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape" && open) {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+      if (event.key === "Tab" && open && mobileNavRef.current) {
+        const focusable = Array.from(
+          mobileNavRef.current.querySelectorAll<HTMLElement>("a, button"),
+        );
+        const first = focusable[0];
+        const last = focusable.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [open]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      mobileNavRef.current?.querySelector<HTMLElement>("a")?.focus();
+    }
     return () => {
       document.body.style.overflow = "";
     };
@@ -46,6 +68,7 @@ export function Header({ name, navigation }: HeaderProps) {
           Solicitar propuesta
         </Link>
         <button
+          ref={menuButtonRef}
           className="menu-toggle"
           type="button"
           aria-expanded={open}
@@ -58,6 +81,7 @@ export function Header({ name, navigation }: HeaderProps) {
         </button>
       </div>
       <div
+        ref={mobileNavRef}
         id="mobile-navigation"
         className={`mobile-nav ${open ? "is-open" : ""}`}
         aria-hidden={!open}

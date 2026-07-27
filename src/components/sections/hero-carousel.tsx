@@ -67,7 +67,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             <div className="hero-overlay" />
             <div className="container hero-content">
               <p className="eyebrow light">{slide.eyebrow}</p>
-              <h1>{slide.title}</h1>
+              {index === 0 ? <h1>{slide.title}</h1> : <h2>{slide.title}</h2>}
               {slide.description ? <p className="hero-description">{slide.description}</p> : null}
               <div className="hero-actions">
                 {slide.primaryCta ? <Link className="button button-accent" href={slide.primaryCta.href}>{slide.primaryCta.label}</Link> : null}

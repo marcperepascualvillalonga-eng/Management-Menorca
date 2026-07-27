@@ -24,6 +24,14 @@ import type {
   Project,
   SiteSettings,
 } from "@/types/content";
+import { createMetadata } from "@/utils/metadata";
+
+export const metadata = createMetadata({
+  title: "Artistas, producción y música en Menorca",
+  description:
+    "Artistas, programación musical, sonido e iluminación para hoteles, bodas y eventos en Menorca.",
+  path: "/",
+});
 
 export default async function Home() {
   const [slides, artists, events, projects, settings] = await Promise.all([

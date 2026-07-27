@@ -8,6 +8,7 @@ export const artistType = defineType({
     defineField({ name: "name", title: "Nombre", type: "string", validation: (rule) => rule.required() }),
     defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "name", maxLength: 96 }, validation: (rule) => rule.required() }),
     defineField({ name: "status", title: "Estado", type: "string", options: { list: [{ title: "Publicado", value: "published" }, { title: "Oculto", value: "hidden" }, { title: "Archivo", value: "archived" }], layout: "radio" }, initialValue: "hidden", validation: (rule) => rule.required() }),
+    defineField({ name: "artistKind", title: "Tipo de entidad", type: "string", options: { list: [{ title: "Persona", value: "person" }, { title: "Grupo musical", value: "musicGroup" }, { title: "Otro formato", value: "other" }], layout: "radio" }, description: "Se utiliza para generar datos estructurados correctos." }),
     defineField({ name: "relationshipType", title: "Relación con la agencia", type: "array", of: [defineArrayMember({ type: "string" })], options: { list: ["Management", "Booking", "Colaboración"] } }),
     defineField({ name: "shortDescription", title: "Descripción corta", type: "text", rows: 3, validation: (rule) => rule.max(240) }),
     defineField({ name: "biography", title: "Biografía", type: "array", of: [defineArrayMember({ type: "block" })] }),

@@ -37,6 +37,7 @@ export type SiteSettings = {
 export type Artist = {
   _id: string;
   name: string;
+  artistKind?: "person" | "musicGroup" | "other";
   slug: string;
   shortDescription?: string;
   biography?: PortableTextBlock[];

@@ -106,7 +106,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-image { object-fit: cover; filter: saturate(.75) contrast(1.03); transform: scale(1.015); }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,15,18,.88) 0%, rgba(5,15,18,.55) 48%, rgba(5,15,18,.1) 80%), linear-gradient(0deg, rgba(5,15,18,.65), transparent 50%); }
 .hero-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; padding-bottom: 7rem; }
-.hero-content h1 { max-width: 900px; margin: 0; font-family: var(--font-display); font-size: clamp(3.8rem, 8.6vw, 8rem); line-height: .9; font-weight: 400; letter-spacing: -.055em; }
+.hero-content h1, .hero-content h2 { max-width: 900px; margin: 0; font-family: var(--font-display); font-size: clamp(3.8rem, 8.6vw, 8rem); line-height: .9; font-weight: 400; letter-spacing: -.055em; }
 .hero-description { max-width: 590px; margin: 2rem 0 0; font-size: clamp(1rem, 1.7vw, 1.24rem); color: rgba(255,255,255,.78); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
 .hero-controls { position: absolute; z-index: 3; left: 50%; bottom: 2rem; transform: translateX(-50%); display: flex; justify-content: space-between; align-items: flex-end; }
@@ -277,11 +277,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 720px) {
   :root { --gutter: 1.15rem; --section: 4.5rem; }
   .site-header { height: 68px; }
-  .mobile-nav { inset-top: 68px; }
+  .mobile-nav { top: 68px; }
   .wordmark small { display: none; }
   .hero-carousel { height: calc(100svh - 68px); min-height: 610px; }
   .hero-content { justify-content: flex-end; padding-bottom: 9rem; }
-  .hero-content h1 { font-size: clamp(3.3rem, 16vw, 5.2rem); }
+  .hero-content h1, .hero-content h2 { font-size: clamp(3.3rem, 16vw, 5.2rem); }
   .hero-description { margin-top: 1rem; }
   .hero-controls { bottom: 1rem; }
   .hero-indicators button span { display: none; }
