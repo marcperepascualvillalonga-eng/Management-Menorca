@@ -10,10 +10,12 @@ Aquest repositori conté la base tècnica de l'aplicació web de Management Meno
 - React i TypeScript
 - Tailwind CSS
 - ESLint
+- Sanity CMS
 - npm
 
-El codi de l'aplicació es troba dins de `src/`. Aquesta inicialització no inclou
-encara la integració amb Sanity ni el desenvolupament de la web final.
+El codi de l'aplicació es troba dins de `src/`. Sanity Studio està integrat a
+la ruta `/studio`. Aquesta inicialització encara no inclou el desenvolupament
+de la web final.
 
 ## Requisits
 
@@ -35,6 +37,38 @@ npm run dev
 ```
 
 Obre [http://localhost:3000](http://localhost:3000) al navegador.
+
+## Configuració de Sanity
+
+Copia el fitxer d'exemple per crear la configuració local:
+
+```bash
+Copy-Item .env.example .env.local
+```
+
+En sistemes Unix:
+
+```bash
+cp .env.example .env.local
+```
+
+Les variables públiques necessàries són:
+
+```dotenv
+NEXT_PUBLIC_SANITY_PROJECT_ID=3cioei5t
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2026-07-27
+```
+
+Aquestes dades identifiquen el projecte i el dataset, però no són tokens
+secrets. No afegeixis tokens d'accés als fitxers versionats.
+
+Amb el servidor de desenvolupament actiu, obre
+[http://localhost:3000/studio](http://localhost:3000/studio) per accedir a
+Sanity Studio. El teu compte de Sanity ha de tenir accés al projecte.
+
+Si el navegador bloqueja les peticions, afegeix `http://localhost:3000` als
+orígens CORS del projecte des de la configuració de Sanity.
 
 ## Scripts
 
