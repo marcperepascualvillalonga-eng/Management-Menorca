@@ -1,6 +1,8 @@
 # Management Menorca
 
-Base tècnica de l'aplicació web de Management Menorca.
+Web de management artístic i producció d'esdeveniments a Menorca.
+
+Aquest repositori conté la base tècnica de l'aplicació web de Management Menorca.
 
 ## Tecnologies
 
