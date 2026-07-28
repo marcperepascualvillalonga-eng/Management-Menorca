@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "", "/artistas", "/servicios", "/sonido-iluminacion-menorca",
     "/bodas-menorca",
-    "/eventos-corporativos-menorca", "/gestion-laboral-artistas", "/agenda",
+    "/eventos-corporativos-menorca", "/gestion-laboral-artistas",
     "/proyectos", "/nosotros", "/contacto", "/privacidad", "/cookies", "/aviso-legal",
   ];
   const [artists, projects] = await Promise.all([

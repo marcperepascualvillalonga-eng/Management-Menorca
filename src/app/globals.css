@@ -178,6 +178,23 @@ body:has(.hero-carousel) .site-header:not(.is-scrolled) .header-cta { background
 .focus-intro-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(2rem,7vw,8rem); align-items: end; margin-bottom: clamp(3rem,6vw,6rem); }
 .focus-intro-grid h2 { margin: 0; font-family: var(--font-display); font-size: clamp(3.6rem,8vw,8rem); line-height: .88; font-weight: 400; letter-spacing: -.055em; }
 .focus-intro-grid p { max-width: 540px; margin: 0; color: var(--ink-soft); font-size: 1.15rem; }
+.vertical-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+.vertical-card {
+  min-height: 480px; padding: clamp(1.5rem,3vw,2.5rem); display: flex; flex-direction: column;
+  border-right: 1px solid var(--line); background: var(--white); transition: transform .3s ease, box-shadow .3s ease;
+}
+.vertical-card:last-child { border-right: 0; }
+.vertical-card:hover { z-index: 1; transform: translateY(-8px); box-shadow: var(--shadow); }
+.vertical-card > span { color: var(--accent-dark); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.vertical-card h3 { margin: auto 0 1.5rem; font-family: var(--font-display); font-size: clamp(2.1rem,3.3vw,3.5rem); font-weight: 400; line-height: .96; letter-spacing: -.04em; }
+.vertical-card p { margin: 0 0 2rem; color: var(--ink-soft); }
+.vertical-card strong { display: flex; justify-content: space-between; gap: 1rem; padding-top: 1rem; border-top: 1px solid currentColor; font-size: .8rem; }
+.vertical-card i { font-style: normal; transition: transform .2s ease; }
+.vertical-card:hover i { transform: translate(4px,-4px); }
+.vertical-card-dark { background: var(--ink); color: var(--white); }
+.vertical-card-dark p { color: rgba(255,255,255,.68); }
+.vertical-card-dark > span { color: #f4b18e; }
+.vertical-card-wedding { background: var(--paper-warm); }
 .focus-service-list { border-color: var(--ink); }
 .focus-service-list .service-row { border-color: var(--line); }
 .focus-service-list .service-row p { color: var(--ink-soft); }
@@ -201,6 +218,13 @@ body:has(.hero-carousel) .site-header:not(.is-scrolled) .header-cta { background
 .artist-admin-note h3 { margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem,3vw,3rem); font-weight: 400; line-height: 1; }
 .artist-admin-note p { margin: 0; color: var(--ink-soft); }
 @keyframes artist-marquee { to { transform: translateX(-50%); } }
+
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.2); border-left: 1px solid rgba(255,255,255,.2); }
+.trust-grid article { min-height: 280px; padding: 1.5rem; display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,.2); border-bottom: 1px solid rgba(255,255,255,.2); }
+.trust-grid span { color: #f4b18e; font-size: .72rem; }
+.trust-grid h3 { margin: auto 0 .8rem; font-family: var(--font-display); font-size: 1.7rem; font-weight: 400; line-height: 1.05; }
+.trust-grid p { margin: 0; color: rgba(255,255,255,.65); font-size: .86rem; }
+.home-contact { background: var(--paper-warm); }
 
 .split-feature { display: grid; grid-template-columns: 1.02fr .98fr; min-height: 650px; }
 .split-media { position: relative; min-height: 500px; overflow: hidden; }
@@ -304,6 +328,10 @@ body:has(.hero-carousel) .site-header:not(.is-scrolled) .header-cta { background
   .mobile-nav .button { margin-top: 2rem; }
   .artist-grid { grid-template-columns: repeat(2, 1fr); }
   .need-grid { grid-template-columns: repeat(2, 1fr); }
+  .vertical-card-grid { grid-template-columns: 1fr; }
+  .vertical-card { min-height: 360px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .vertical-card:last-child { border-bottom: 0; }
+  .trust-grid { grid-template-columns: repeat(2, 1fr); }
   .service-row { grid-template-columns: 50px 1fr 50px; padding-block: 1.5rem; }
   .service-row p { display: none; }
   .event-row { grid-template-columns: 75px 1fr 90px 44px; }
@@ -334,6 +362,8 @@ body:has(.hero-carousel) .site-header:not(.is-scrolled) .header-cta { background
   .marquee-artist { width: 72vw; }
   .artist-showcase-actions { align-items: flex-start; flex-direction: column; gap: 1.2rem; }
   .artist-admin-note { grid-template-columns: 1fr; gap: 1.2rem; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .trust-grid article { min-height: 220px; }
   .artist-card-copy p { max-width: 48%; }
   .service-row { grid-template-columns: 35px 1fr 30px; gap: 1rem; min-height: 125px; }
   .split-feature { grid-template-columns: 1fr; }

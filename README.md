@@ -96,16 +96,6 @@ npm run start
 5. Activa `Destacado` i assigna un ordre si ha d'aparèixer a portada.
 6. Publica el document.
 
-### Crear un esdeveniment
-
-1. Obre **Agenda**.
-2. Crea l'esdeveniment, associa l'artista i completa data i lloc.
-3. Activa `Evento público` només si es pot mostrar públicament.
-4. Afegeix l'estat i l'enllaç d'informació o entrades.
-5. Publica.
-
-Els esdeveniments privats queden exclosos de totes les consultes públiques.
-
 ### Editar portada i contacte
 
 - **Hero** gestiona fins a quatre slides actius i ordenats.

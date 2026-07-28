@@ -1,13 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { ArtistMarquee } from "@/components/artists/artist-marquee";
+import { InquiryForm } from "@/components/forms/inquiry-form";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ContactCta } from "@/components/sections/contact-cta";
 import { HeroCarousel } from "@/components/sections/hero-carousel";
 import { EmptyState } from "@/components/ui/empty-state";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { defaultHeroSlides, serviceLinks, siteUrl } from "@/config/site";
+import {
+  defaultHeroSlides,
+  fallbackFaqs,
+  serviceLinks,
+  siteUrl,
+} from "@/config/site";
 import { safeSanityFetch } from "@/sanity/lib/fetch";
 import {
   artistsQuery,
@@ -22,9 +27,9 @@ import type {
 import { createMetadata } from "@/utils/metadata";
 
 export const metadata = createMetadata({
-  title: "Artistas, sonido, iluminación y bodas en Menorca",
+  title: "Artistas, booking, sonido, iluminación y bodas en Menorca",
   description:
-    "Catálogo de artistas y servicios de sonido, iluminación, audiovisuales y bodas para eventos en Menorca.",
+    "Catálogo y booking de artistas, sonido e iluminación profesional y producción musical para bodas y eventos en Menorca.",
   path: "/",
 });
 
@@ -58,6 +63,15 @@ export default async function Home() {
               "Artistas, sonido, iluminación y servicios para bodas y eventos en Menorca.",
             email: settings?.email,
             telephone: settings?.phone,
+            areaServed: {
+              "@type": "AdministrativeArea",
+              name: "Menorca",
+            },
+            knowsAbout: [
+              "Booking de artistas en Menorca",
+              "Sonido e iluminación profesional",
+              "Música y producción para bodas en Menorca",
+            ],
           },
           {
             "@context": "https://schema.org",
@@ -66,36 +80,37 @@ export default async function Home() {
             url: siteUrl,
             inLanguage: "es",
           },
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Servicios de Management Menorca",
+            itemListElement: serviceLinks.map((service, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "Service",
+                name: service.title,
+                description: service.description,
+                url: new URL(service.href, siteUrl).toString(),
+                areaServed: "Menorca",
+              },
+            })),
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: fallbackFaqs.map((item) => ({
+              "@type": "Question",
+              name: item.question,
+              acceptedAnswer: { "@type": "Answer", text: item.answer },
+            })),
+          },
         ]}
       />
 
       <HeroCarousel
         slides={focusedSlides.length === 3 ? focusedSlides : defaultHeroSlides}
       />
-
-      <section className="section focus-intro">
-        <div className="container">
-          <p className="eyebrow">Todo lo que necesita tu evento</p>
-          <div className="focus-intro-grid">
-            <h2>Artistas. Técnica. Bodas.</h2>
-            <p>
-              Tres áreas claras y un mismo objetivo: que la música, el sonido y
-              la experiencia funcionen de principio a fin en cualquier evento
-              de Menorca.
-            </p>
-          </div>
-          <div className="service-list focus-service-list">
-            {serviceLinks.map((service) => (
-              <Link className="service-row" href={service.href} key={service.href}>
-                <span>{service.index}</span>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <i aria-hidden="true">↗</i>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="section section-sea artist-showcase">
         <div className="container">
@@ -146,73 +161,108 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="split-feature section-dark">
-        <div className="split-copy">
-          <p className="eyebrow light">Eventos en Menorca</p>
-          <h2>Sonido, iluminación y soluciones audiovisuales.</h2>
-          <p>
-            Producción técnica para conciertos, eventos corporativos,
-            presentaciones, celebraciones y actos públicos, adaptada al espacio
-            y al formato.
-          </p>
-          <ul className="feature-list">
-            <li>Sonido profesional</li>
-            <li>Iluminación escénica y ambiental</li>
-            <li>Pantallas LED y vídeo</li>
-            <li>Streaming y realización</li>
-            <li>Conciertos y música ambiente</li>
-            <li>Eventos corporativos</li>
-            <li>Montaje y operación técnica</li>
-            <li>Coordinación audiovisual</li>
-          </ul>
-          <Link className="button button-accent" href="/sonido-iluminacion-menorca">
-            Ver soluciones técnicas
-          </Link>
-        </div>
-        <div className="split-media">
-          <Image
-            src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1800&q=86"
-            alt="Producción de sonido e iluminación en un evento"
-            fill
-            sizes="(max-width: 720px) 100vw, 50vw"
-          />
-        </div>
-      </section>
-
-      <section className="split-feature wedding-focus">
-        <div className="split-media">
-          <Image
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=86"
-            alt="Celebración de boda al aire libre"
-            fill
-            sizes="(max-width: 720px) 100vw, 50vw"
-          />
-        </div>
-        <div className="split-copy">
-          <p className="eyebrow">Bodas en Menorca</p>
-          <h2>Un solo equipo para acompañar toda la boda.</h2>
-          <p>
-            Sonido e iluminación desde la ceremonia hasta la fiesta, con
-            artistas, DJ, música ambiente y servicios que completan la
-            celebración.
-          </p>
-          <ul className="feature-list">
-            <li>Sonido para ceremonia</li>
-            <li>Iluminación ambiental</li>
-            <li>Artistas en directo</li>
-            <li>DJ y pista de baile</li>
-            <li>Música para aperitivo y banquete</li>
-            <li>Fotomatón</li>
-            <li>Microfonía para discursos</li>
-            <li>Coordinación técnica completa</li>
-          </ul>
-          <Link className="button button-dark" href="/bodas-menorca">
-            Preparar nuestra boda
-          </Link>
+      <section className="section focus-intro" aria-labelledby="verticals-title">
+        <div className="container">
+          <p className="eyebrow">Tres verticales · Un equipo en Menorca</p>
+          <div className="focus-intro-grid">
+            <h2 id="verticals-title">Todo empieza aquí.</h2>
+            <p>
+              Elige el área que necesitas. Dentro encontrarás servicios,
+              proceso, preguntas frecuentes y un formulario específico para
+              preparar una propuesta útil.
+            </p>
+          </div>
+          <div className="vertical-card-grid">
+            <Link className="vertical-card" href="/artistas">
+              <span>01 · Artistas y booking</span>
+              <h3>Nuestro catálogo de artistas en Menorca</h3>
+              <p>
+                Solistas, grupos, DJ y música en directo. Consulta perfiles,
+                estilos, formatos y disponibilidad para tu fecha.
+              </p>
+              <strong>Descubrir artistas <i aria-hidden="true">↗</i></strong>
+            </Link>
+            <Link
+              className="vertical-card vertical-card-dark"
+              href="/sonido-iluminacion-menorca"
+            >
+              <span>02 · Producción técnica</span>
+              <h3>Sonido e iluminación profesional en Menorca</h3>
+              <p>
+                Audio, luz, vídeo, pantallas LED y streaming para conciertos,
+                corporativos, celebraciones y eventos públicos.
+              </p>
+              <strong>Ver soluciones técnicas <i aria-hidden="true">↗</i></strong>
+            </Link>
+            <Link className="vertical-card vertical-card-wedding" href="/bodas-menorca">
+              <span>03 · Bodas</span>
+              <h3>Música, sonido e iluminación para bodas en Menorca</h3>
+              <p>
+                Ceremonia, aperitivo, artistas, DJ, iluminación, fotomatón y
+                coordinación técnica para toda la celebración.
+              </p>
+              <strong>Preparar nuestra boda <i aria-hidden="true">↗</i></strong>
+            </Link>
+          </div>
         </div>
       </section>
 
-      <ContactCta whatsapp={settings?.whatsapp} />
+      <section className="section section-dark trust-section">
+        <div className="container">
+          <SectionHeading
+            eyebrow="Una producción más sencilla"
+            title="Un solo punto de contacto. Tres especialidades conectadas."
+            description="La propuesta se construye alrededor de la fecha, el espacio y el objetivo real del evento."
+          />
+          <div className="trust-grid">
+            <article>
+              <span>01</span>
+              <h3>Conocimiento local</h3>
+              <p>Servicio planteado para espacios, proveedores y eventos en Menorca.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Propuesta a medida</h3>
+              <p>Sin paquetes ficticios: confirmamos artistas, alcance técnico y disponibilidad para cada proyecto.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Coordinación integral</h3>
+              <p>Booking, producción y tiempos conectados para reducir interlocutores y evitar fricciones.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3>Información clara</h3>
+              <p>Necesidades, proceso y límites del servicio definidos antes de llegar al evento.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section-sea">
+        <div className="container editorial-grid">
+          <SectionHeading
+            eyebrow="Preguntas frecuentes"
+            title="Respuestas antes de empezar"
+            description="Información directa sobre artistas, producción técnica y bodas en Menorca."
+          />
+          <FaqAccordion items={fallbackFaqs} />
+        </div>
+      </section>
+
+      <section className="section home-contact" id="contacto">
+        <div className="container editorial-grid">
+          <div>
+            <p className="eyebrow">Cuéntanos tu idea</p>
+            <h2>Empecemos por lo esencial.</h2>
+            <p className="prose">
+              Indica qué vertical necesitas, la fecha aproximada, el municipio
+              y el tipo de evento. Te ayudaremos a concretar el resto.
+            </p>
+          </div>
+          <InquiryForm />
+        </div>
+      </section>
     </main>
   );
 }

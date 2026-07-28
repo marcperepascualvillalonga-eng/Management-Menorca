@@ -42,21 +42,21 @@ export const defaultHeroSlides: HeroSlide[] = [
 
 export const serviceLinks = [
   {
-    title: "Artistas",
+    title: "Catálogo de artistas y booking en Menorca",
     description:
       "Catálogo, disponibilidad y contratación de artistas para eventos en Menorca.",
     href: "/artistas",
     index: "01",
   },
   {
-    title: "Sonido e iluminación",
+    title: "Sonido e iluminación profesional en Menorca",
     description:
       "Producción técnica y audiovisual para corporativos, conciertos, celebraciones y eventos públicos.",
     href: "/sonido-iluminacion-menorca",
     index: "02",
   },
   {
-    title: "Bodas",
+    title: "Música y producción para bodas en Menorca",
     description:
       "Sonido, iluminación, música, artistas, DJ y servicios para acompañar toda la celebración.",
     href: "/bodas-menorca",

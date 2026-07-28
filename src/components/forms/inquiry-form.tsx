@@ -47,6 +47,15 @@ export function InquiryForm({ formType = "general", compact = false }: InquiryFo
         {!compact ? (
           <>
             <label>
+              <span>¿Qué necesitas?</span>
+              <select name="service" defaultValue={formType}>
+                <option value="general">Orientación general</option>
+                <option value="artist">Artistas y booking</option>
+                <option value="technical">Sonido e iluminación</option>
+                <option value="wedding">Boda en Menorca</option>
+              </select>
+            </label>
+            <label>
               <span>Fecha aproximada</span>
               <input name="date" type="date" />
             </label>
