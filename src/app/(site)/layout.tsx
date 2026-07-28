@@ -12,10 +12,7 @@ export default async function SiteLayout({
     siteSettingsQuery,
     null,
   );
-  const navigation =
-    settings?.primaryNavigation?.length
-      ? settings.primaryNavigation
-      : defaultNavigation;
+  const navigation = defaultNavigation;
 
   return (
     <>

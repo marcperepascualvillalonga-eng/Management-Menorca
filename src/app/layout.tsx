@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | Management Menorca",
   },
   description:
-    "Artistas, programación musical, sonido e iluminación para hoteles, bodas y eventos en Menorca.",
+    "Artistas, sonido, iluminación, audiovisuales y servicios para bodas y eventos en Menorca.",
   applicationName: "Management Menorca",
   manifest: "/manifest.webmanifest",
   openGraph: {

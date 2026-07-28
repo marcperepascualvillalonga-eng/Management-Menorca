@@ -7,7 +7,7 @@ import { createMetadata } from "@/utils/metadata";
 
 export const metadata = createMetadata({
   title: "Servicios musicales y producción de eventos",
-  description: "Artistas, programación para hoteles, bodas, eventos corporativos, sonido e iluminación y gestión laboral en Menorca.",
+  description: "Catálogo de artistas, sonido e iluminación para eventos y servicios completos para bodas en Menorca.",
   path: "/servicios",
 });
 

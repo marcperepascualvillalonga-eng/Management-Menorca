@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 
 type InquiryFormProps = {
-  formType?: "general" | "artist" | "hotel" | "wedding" | "corporate" | "technical";
+  formType?: "general" | "artist" | "wedding" | "corporate" | "technical";
   compact?: boolean;
 };
 
@@ -59,7 +59,6 @@ export function InquiryForm({ formType = "general", compact = false }: InquiryFo
               <select name="eventType" defaultValue="">
                 <option value="" disabled>Selecciona una opción</option>
                 <option>Boda o celebración</option>
-                <option>Hotel o agroturismo</option>
                 <option>Evento corporativo</option>
                 <option>Concierto o evento público</option>
                 <option>Necesidad técnica</option>

@@ -7,7 +7,7 @@ import { artistSlugsQuery, projectSlugsQuery } from "@/sanity/queries/content";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "", "/artistas", "/servicios", "/sonido-iluminacion-menorca",
-    "/artistas-menorca", "/showbusiness-hoteles-menorca", "/bodas-menorca",
+    "/bodas-menorca",
     "/eventos-corporativos-menorca", "/gestion-laboral-artistas", "/agenda",
     "/proyectos", "/nosotros", "/contacto", "/privacidad", "/cookies", "/aviso-legal",
   ];

@@ -21,7 +21,7 @@ type ServiceLandingProps = {
   benefits: { title: string; description: string }[];
   process: string[];
   faqs: FaqItem[];
-  formType: "general" | "artist" | "hotel" | "wedding" | "corporate" | "technical";
+  formType: "general" | "artist" | "wedding" | "corporate" | "technical";
   ctaLabel?: string;
 };
 

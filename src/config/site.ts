@@ -5,98 +5,62 @@ export const siteUrl =
 
 export const defaultNavigation: NavigationItem[] = [
   { label: "Artistas", href: "/artistas" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Hoteles", href: "/showbusiness-hoteles-menorca" },
-  { label: "Bodas", href: "/bodas-menorca" },
   { label: "Sonido e iluminación", href: "/sonido-iluminacion-menorca" },
-  { label: "Agenda", href: "/agenda" },
-  { label: "Nosotros", href: "/nosotros" },
+  { label: "Bodas", href: "/bodas-menorca" },
 ];
 
 export const defaultHeroSlides: HeroSlide[] = [
   {
     _id: "artists",
-    eyebrow: "Artistas · Booking · Producción",
-    title: "Artistas para momentos que se recuerdan.",
+    eyebrow: "Artistas · Booking · Menorca",
+    title: "La música empieza por encontrar al artista adecuado.",
     description:
-      "Descubre propuestas musicales con personalidad para hoteles, bodas y eventos en Menorca.",
+      "Descubre nuestro catálogo de artistas para bodas, conciertos, celebraciones y eventos en Menorca.",
     primaryCta: { label: "Ver artistas", href: "/artistas" },
-    secondaryCta: { label: "Solicitar propuesta", href: "/contacto" },
+    secondaryCta: { label: "Consultar disponibilidad", href: "/contacto" },
   },
   {
     _id: "production",
-    eyebrow: "Sonido e iluminación",
-    title: "Producción técnica para que todo suene y se vea como debe.",
+    eyebrow: "Sonido · Iluminación · Audiovisuales",
+    title: "La parte técnica de tu evento, coordinada de principio a fin.",
     description:
-      "Coordinamos sonido, iluminación, montaje y asistencia técnica con un único interlocutor.",
+      "Sonido, iluminación, pantallas LED, streaming y producción audiovisual para eventos en Menorca.",
     primaryCta: {
-      label: "Descubrir el servicio",
+      label: "Sonido e iluminación",
       href: "/sonido-iluminacion-menorca",
-    },
-  },
-  {
-    _id: "hotels",
-    eyebrow: "Showbusiness hotelero",
-    title: "Programación musical para hoteles con identidad.",
-    description:
-      "Diseñamos programaciones recurrentes, sunsets y experiencias musicales pensadas para cada espacio.",
-    primaryCta: {
-      label: "Showbusiness para hoteles",
-      href: "/showbusiness-hoteles-menorca",
     },
   },
   {
     _id: "weddings",
     eyebrow: "Bodas en Menorca",
-    title: "La música de uno de los días más importantes.",
+    title: "Música, sonido y luz para todo el día.",
     description:
-      "Ceremonia, aperitivo, directo, DJ y producción coordinados con calma y atención al detalle.",
-    primaryCta: { label: "Música para bodas", href: "/bodas-menorca" },
+      "Ceremonia, aperitivo, artistas, DJ, iluminación, fotomatón y coordinación técnica para vuestra boda.",
+    primaryCta: { label: "Preparar nuestra boda", href: "/bodas-menorca" },
   },
 ];
 
 export const serviceLinks = [
   {
-    title: "Artistas y booking",
+    title: "Artistas",
     description:
-      "Encuentra el formato artístico adecuado y centraliza disponibilidad, contratación y coordinación.",
-    href: "/artistas-menorca",
+      "Catálogo, disponibilidad y contratación de artistas para eventos en Menorca.",
+    href: "/artistas",
     index: "01",
-  },
-  {
-    title: "Showbusiness para hoteles",
-    description:
-      "Programación musical recurrente para hoteles y agroturismos, con gestión operativa completa.",
-    href: "/showbusiness-hoteles-menorca",
-    index: "02",
   },
   {
     title: "Sonido e iluminación",
     description:
-      "Servicio técnico integral para conciertos, bodas, hoteles y eventos corporativos.",
+      "Producción técnica y audiovisual para corporativos, conciertos, celebraciones y eventos públicos.",
     href: "/sonido-iluminacion-menorca",
-    index: "03",
+    index: "02",
   },
   {
-    title: "Bodas y celebraciones",
+    title: "Bodas",
     description:
-      "Música y producción adaptadas a cada momento, desde la ceremonia hasta la fiesta.",
+      "Sonido, iluminación, música, artistas, DJ y servicios para acompañar toda la celebración.",
     href: "/bodas-menorca",
-    index: "04",
-  },
-  {
-    title: "Eventos corporativos",
-    description:
-      "Artistas, DJ y producción para experiencias de marca, convenciones y encuentros de empresa.",
-    href: "/eventos-corporativos-menorca",
-    index: "05",
-  },
-  {
-    title: "Gestión laboral",
-    description:
-      "Derivación clara para altas, bajas, contratos y documentación de actuaciones puntuales.",
-    href: "/gestion-laboral-artistas",
-    index: "06",
+    index: "03",
   },
 ];
 
@@ -104,26 +68,21 @@ export const fallbackFaqs = [
   {
     question: "¿Qué tipo de artistas se pueden contratar en Menorca?",
     answer:
-      "Trabajamos con diferentes formatos y estilos. Cuéntanos el tipo de evento, el espacio y la atmósfera que buscas para orientarte con propuestas adecuadas.",
-  },
-  {
-    question: "¿Podéis organizar la programación musical de un hotel?",
-    answer:
-      "Sí. Podemos plantear una programación recurrente, coordinar artistas, sustituciones y necesidades técnicas desde un único punto de contacto.",
+      "El catálogo reúne diferentes estilos y formatos. La disponibilidad se confirma siempre para la fecha y el tipo de evento.",
   },
   {
     question: "¿Incluís sonido e iluminación?",
     answer:
-      "Podemos integrar el servicio de sonido e iluminación en la propuesta y coordinarlo con artistas, espacio y horarios.",
+      "Sí. Podemos integrar sonido, iluminación y producción audiovisual en la propuesta del evento.",
+  },
+  {
+    question: "¿Podéis cubrir técnicamente toda una boda?",
+    answer:
+      "Podemos plantear sonido e iluminación para ceremonia, aperitivo, banquete y fiesta, además de coordinar artistas y DJ.",
   },
   {
     question: "¿Trabajáis en toda Menorca?",
     answer:
-      "La actividad está orientada a eventos y espacios de toda Menorca. La viabilidad concreta se confirma para cada fecha y localización.",
-  },
-  {
-    question: "¿Con cuánta antelación debe reservarse?",
-    answer:
-      "Cuanto antes mejor, especialmente en temporada alta. También podemos estudiar necesidades con menos margen según disponibilidad.",
+      "La actividad está orientada a eventos en toda Menorca. La viabilidad se confirma para cada fecha y localización.",
   },
 ];

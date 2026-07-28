@@ -1,8 +1,8 @@
 # Management Menorca
 
-Primera versió professional de la web de Management Menorca: artistes,
-programació musical per a hotels, bodes, esdeveniments corporatius, producció
-tècnica i gestió laboral per a artistes a Menorca.
+Primera versió professional de la web de Management Menorca, centrada en tres
+àrees: catàleg d'artistes, so i il·luminació per a esdeveniments, i serveis
+complets per a bodes a Menorca.
 
 La web pública està en castellà. L'arquitectura permet afegir català i anglès
 més endavant sense traduccions automàtiques.
