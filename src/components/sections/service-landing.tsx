@@ -23,6 +23,7 @@ type ServiceLandingProps = {
   faqs: FaqItem[];
   formType: "general" | "artist" | "wedding" | "corporate" | "technical";
   ctaLabel?: string;
+  locale?: "es" | "ca";
 };
 
 export function ServiceLanding({
@@ -39,8 +40,10 @@ export function ServiceLanding({
   faqs,
   formType,
   ctaLabel = "Solicitar propuesta",
+  locale = "es",
 }: ServiceLandingProps) {
   const absoluteUrl = new URL(path, siteUrl).toString();
+  const ca = locale === "ca";
 
   return (
     <main id="main-content">
@@ -81,13 +84,13 @@ export function ServiceLanding({
       />
       <section className="page-hero">
         <div className="container">
-          <Breadcrumbs items={[{ label: "Inicio", href: "/" }, { label: title }]} />
+          <Breadcrumbs items={[{ label: ca ? "Inici" : "Inicio", href: ca ? "/ca" : "/" }, { label: title }]} />
           <p className="eyebrow">{eyebrow}</p>
           <h1>{title}</h1>
           <p className="page-hero-description">{intro}</p>
           <div className="hero-actions">
             <Link className="button button-dark" href="#consulta">{ctaLabel}</Link>
-            <Link className="button button-outline" href="/artistas">Ver artistas</Link>
+            <Link className="button button-outline" href={ca ? "/ca/artistes" : "/artistas"}>{ca ? "Veure artistes" : "Ver artistas"}</Link>
           </div>
         </div>
       </section>
@@ -97,7 +100,7 @@ export function ServiceLanding({
           <Image src={image} alt={imageAlt} fill sizes="(max-width: 720px) 100vw, 50vw" priority />
         </div>
         <div className="split-copy">
-          <p className="eyebrow">El punto de partida</p>
+          <p className="eyebrow">{ca ? "El punt de partida" : "El punto de partida"}</p>
           <h2>{problemTitle}</h2>
           {problemBody.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
@@ -106,9 +109,9 @@ export function ServiceLanding({
       <section className="section section-dark">
         <div className="container">
           <SectionHeading
-            eyebrow="Qué podemos coordinar"
-            title="Una propuesta que encaja con el contexto."
-            description="Seleccionamos y combinamos solo lo necesario para que la experiencia sea coherente y operativamente sencilla."
+            eyebrow={ca ? "Què podem coordinar" : "Qué podemos coordinar"}
+            title={ca ? "Una proposta que encaixa amb el context." : "Una propuesta que encaja con el contexto."}
+            description={ca ? "Seleccionam i combinam només el necessari perquè l’experiència sigui coherent i operativament senzilla." : "Seleccionamos y combinamos solo lo necesario para que la experiencia sea coherente y operativamente sencilla."}
           />
           <div className="need-grid">
             {benefits.map((benefit, index) => (
@@ -125,8 +128,8 @@ export function ServiceLanding({
       <section className="section">
         <div className="container editorial-grid">
           <div>
-            <p className="eyebrow">Cómo trabajamos</p>
-            <h2>Un proceso claro, de la idea al evento.</h2>
+            <p className="eyebrow">{ca ? "Com treballam" : "Cómo trabajamos"}</p>
+            <h2>{ca ? "Un procés clar, de la idea a l’esdeveniment." : "Un proceso claro, de la idea al evento."}</h2>
           </div>
           <ol className="process-list">
             {process.map((item, index) => (
@@ -141,7 +144,7 @@ export function ServiceLanding({
 
       <section className="section section-sea">
         <div className="container editorial-grid">
-          <SectionHeading eyebrow="Preguntas frecuentes" title="Antes de empezar" />
+          <SectionHeading eyebrow={ca ? "Preguntes freqüents" : "Preguntas frecuentes"} title={ca ? "Abans de començar" : "Antes de empezar"} />
           <FaqAccordion items={faqs} />
         </div>
       </section>
@@ -149,13 +152,13 @@ export function ServiceLanding({
       <section className="section" id="consulta">
         <div className="container editorial-grid">
           <div>
-            <p className="eyebrow">Cuéntanos lo esencial</p>
+            <p className="eyebrow">{ca ? "Conta’ns l’essencial" : "Cuéntanos lo esencial"}</p>
             <h2 className="display-title" style={{ fontSize: "clamp(2.8rem,5vw,5rem)", lineHeight: ".98", margin: 0 }}>
-              Preparamos una propuesta a medida.
+              {ca ? "Preparam una proposta a mida." : "Preparamos una propuesta a medida."}
             </h2>
-            <p className="prose">Si el envío automático todavía no está configurado, verás alternativas de contacto claras. Nunca simulamos un envío correcto.</p>
+            <p className="prose">{ca ? "Si l’enviament automàtic encara no està configurat, veuràs alternatives de contacte clares." : "Si el envío automático todavía no está configurado, verás alternativas de contacto claras. Nunca simulamos un envío correcto."}</p>
           </div>
-          <InquiryForm formType={formType} />
+          <InquiryForm formType={formType} locale={locale} />
         </div>
       </section>
     </main>

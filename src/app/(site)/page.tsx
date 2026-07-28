@@ -1,14 +1,13 @@
 import Link from "next/link";
 
+import { ArtistHero } from "@/components/artists/artist-hero";
 import { ArtistMarquee } from "@/components/artists/artist-marquee";
 import { InquiryForm } from "@/components/forms/inquiry-form";
 import { JsonLd } from "@/components/seo/json-ld";
-import { HeroCarousel } from "@/components/sections/hero-carousel";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import {
-  defaultHeroSlides,
   fallbackFaqs,
   serviceLinks,
   siteUrl,
@@ -16,12 +15,10 @@ import {
 import { safeSanityFetch } from "@/sanity/lib/fetch";
 import {
   artistsQuery,
-  heroSlidesQuery,
   siteSettingsQuery,
 } from "@/sanity/queries/content";
 import type {
   Artist,
-  HeroSlide,
   SiteSettings,
 } from "@/types/content";
 import { createMetadata } from "@/utils/metadata";
@@ -34,20 +31,10 @@ export const metadata = createMetadata({
 });
 
 export default async function Home() {
-  const [slides, artists, settings] = await Promise.all([
-    safeSanityFetch<HeroSlide[]>(heroSlidesQuery, []),
+  const [artists, settings] = await Promise.all([
     safeSanityFetch<Artist[]>(artistsQuery, []),
     safeSanityFetch<SiteSettings | null>(siteSettingsQuery, null),
   ]);
-
-  const focusedSlides = slides
-    .filter((slide) => {
-      const content = `${slide.title} ${slide.eyebrow ?? ""} ${
-        slide.primaryCta?.href ?? ""
-      }`.toLowerCase();
-      return !content.includes("hotel");
-    })
-    .slice(0, 3);
 
   return (
     <main id="main-content">
@@ -108,9 +95,7 @@ export default async function Home() {
         ]}
       />
 
-      <HeroCarousel
-        slides={focusedSlides.length === 3 ? focusedSlides : defaultHeroSlides}
-      />
+      <ArtistHero artists={artists} />
 
       <section className="section section-sea artist-showcase">
         <div className="container">

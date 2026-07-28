@@ -10,6 +10,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/bodas-menorca",
     "/eventos-corporativos-menorca", "/gestion-laboral-artistas",
     "/proyectos", "/nosotros", "/contacto", "/privacidad", "/cookies", "/aviso-legal",
+    "/ca", "/ca/artistes", "/ca/so-illuminacio-menorca",
+    "/ca/casaments-menorca", "/ca/contacte",
   ];
   const [artists, projects] = await Promise.all([
     safeSanityFetch<{ slug: string }[]>(artistSlugsQuery, []),

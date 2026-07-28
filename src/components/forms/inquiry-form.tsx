@@ -5,9 +5,11 @@ import { FormEvent, useState } from "react";
 type InquiryFormProps = {
   formType?: "general" | "artist" | "wedding" | "corporate" | "technical";
   compact?: boolean;
+  locale?: "es" | "ca";
 };
 
-export function InquiryForm({ formType = "general", compact = false }: InquiryFormProps) {
+export function InquiryForm({ formType = "general", compact = false, locale = "es" }: InquiryFormProps) {
+  const ca = locale === "ca";
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -29,72 +31,72 @@ export function InquiryForm({ formType = "general", compact = false }: InquiryFo
       </div>
       <div className="form-grid">
         <label>
-          <span>Nombre *</span>
+          <span>{ca ? "Nom *" : "Nombre *"}</span>
           <input name="name" required autoComplete="name" />
         </label>
         <label>
-          <span>Correo electrónico *</span>
+          <span>{ca ? "Correu electrònic *" : "Correo electrónico *"}</span>
           <input name="email" type="email" required autoComplete="email" />
         </label>
         <label>
-          <span>Teléfono</span>
+          <span>{ca ? "Telèfon" : "Teléfono"}</span>
           <input name="phone" type="tel" autoComplete="tel" />
         </label>
         <label>
-          <span>Empresa o espacio</span>
+          <span>{ca ? "Empresa o espai" : "Empresa o espacio"}</span>
           <input name="company" autoComplete="organization" />
         </label>
         {!compact ? (
           <>
             <label>
-              <span>¿Qué necesitas?</span>
+              <span>{ca ? "Què necessites?" : "¿Qué necesitas?"}</span>
               <select name="service" defaultValue={formType}>
-                <option value="general">Orientación general</option>
-                <option value="artist">Artistas y booking</option>
-                <option value="technical">Sonido e iluminación</option>
-                <option value="wedding">Boda en Menorca</option>
+                <option value="general">{ca ? "Orientació general" : "Orientación general"}</option>
+                <option value="artist">{ca ? "Artistes i booking" : "Artistas y booking"}</option>
+                <option value="technical">{ca ? "So i il·luminació" : "Sonido e iluminación"}</option>
+                <option value="wedding">{ca ? "Casament a Menorca" : "Boda en Menorca"}</option>
               </select>
             </label>
             <label>
-              <span>Fecha aproximada</span>
+              <span>{ca ? "Data aproximada" : "Fecha aproximada"}</span>
               <input name="date" type="date" />
             </label>
             <label>
-              <span>Municipio</span>
+              <span>{ca ? "Municipi" : "Municipio"}</span>
               <input name="locality" />
             </label>
             <label>
-              <span>Tipo de evento</span>
+              <span>{ca ? "Tipus d’esdeveniment" : "Tipo de evento"}</span>
               <select name="eventType" defaultValue="">
-                <option value="" disabled>Selecciona una opción</option>
-                <option>Boda o celebración</option>
-                <option>Evento corporativo</option>
-                <option>Concierto o evento público</option>
-                <option>Necesidad técnica</option>
-                <option>Otro</option>
+                <option value="" disabled>{ca ? "Selecciona una opció" : "Selecciona una opción"}</option>
+                <option>{ca ? "Casament o celebració" : "Boda o celebración"}</option>
+                <option>{ca ? "Esdeveniment corporatiu" : "Evento corporativo"}</option>
+                <option>{ca ? "Concert o esdeveniment públic" : "Concierto o evento público"}</option>
+                <option>{ca ? "Necessitat tècnica" : "Necesidad técnica"}</option>
+                <option>{ca ? "Un altre" : "Otro"}</option>
               </select>
             </label>
             <label>
-              <span>Número de asistentes</span>
+              <span>{ca ? "Nombre d’assistents" : "Número de asistentes"}</span>
               <input name="attendees" inputMode="numeric" />
             </label>
           </>
         ) : null}
         <label className="form-full">
-          <span>¿Qué tienes en mente? *</span>
+          <span>{ca ? "Què tens en ment? *" : "¿Qué tienes en mente? *"}</span>
           <textarea name="message" rows={5} required />
         </label>
       </div>
       <label className="checkbox-field">
         <input name="privacy" type="checkbox" required />
-        <span>He leído y acepto la <a href="/privacidad">política de privacidad</a>.</span>
+        <span>{ca ? "He llegit i accept la " : "He leído y acepto la "}<a href="/privacidad">{ca ? "política de privacitat" : "política de privacidad"}</a>.</span>
       </label>
       <button className="button button-accent" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Enviando…" : "Enviar consulta"}
+        {status === "sending" ? (ca ? "Enviant…" : "Enviando…") : (ca ? "Enviar consulta" : "Enviar consulta")}
       </button>
       {status === "error" ? (
         <p className="form-notice" role="alert">
-          El envío automático todavía no está configurado. Puedes contactar por correo o WhatsApp.
+          {ca ? "L’enviament automàtic encara no està configurat. Pots contactar per correu o WhatsApp." : "El envío automático todavía no está configurado. Puedes contactar por correo o WhatsApp."}
         </p>
       ) : null}
     </form>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import type { NavigationItem } from "@/types/content";
@@ -11,10 +12,36 @@ type HeaderProps = {
 };
 
 export function Header({ name, navigation }: HeaderProps) {
+  const pathname = usePathname();
+  const isCatalan = pathname === "/ca" || pathname.startsWith("/ca/");
+  const localizedNavigation = isCatalan
+    ? [
+        { label: "Artistes", href: "/ca/artistes" },
+        { label: "So i il·luminació", href: "/ca/so-illuminacio-menorca" },
+        { label: "Casaments", href: "/ca/casaments-menorca" },
+      ]
+    : navigation;
+  const translatedPaths: Record<string, string> = {
+    "/": "/ca",
+    "/artistas": "/ca/artistes",
+    "/sonido-iluminacion-menorca": "/ca/so-illuminacio-menorca",
+    "/bodas-menorca": "/ca/casaments-menorca",
+    "/contacto": "/ca/contacte",
+    "/ca": "/",
+    "/ca/artistes": "/artistas",
+    "/ca/so-illuminacio-menorca": "/sonido-iluminacion-menorca",
+    "/ca/casaments-menorca": "/bodas-menorca",
+    "/ca/contacte": "/contacto",
+  };
+  const languageHref = translatedPaths[pathname] ?? (isCatalan ? "/" : "/ca");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileNavRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.documentElement.lang = isCatalan ? "ca" : "es";
+  }, [isCatalan]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -61,19 +88,22 @@ export function Header({ name, navigation }: HeaderProps) {
   return (
     <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>
       <div className="container header-inner">
-        <Link className="wordmark" href="/" aria-label={`${name}, inicio`}>
+        <Link className="wordmark" href={isCatalan ? "/ca" : "/"} aria-label={`${name}, ${isCatalan ? "inici" : "inicio"}`}>
           <span>{name}</span>
-          <small>Menorca · Música · Producción</small>
+          <small>{isCatalan ? "Menorca · Música · Producció" : "Menorca · Música · Producción"}</small>
         </Link>
         <nav className="desktop-nav" aria-label="Navegación principal">
-          {navigation.map((item) => (
+          {localizedNavigation.map((item) => (
             <Link key={item.href} href={item.href}>
               {item.label}
             </Link>
           ))}
         </nav>
-        <Link className="button button-dark header-cta" href="/contacto">
-          Solicitar propuesta
+        <Link className="language-switch" href={languageHref} hrefLang={isCatalan ? "es" : "ca"} lang={isCatalan ? "es" : "ca"}>
+          {isCatalan ? "ES" : "CA"}
+        </Link>
+        <Link className="button button-dark header-cta" href={isCatalan ? "/ca/contacte" : "/contacto"}>
+          {isCatalan ? "Contacta’ns" : "Contáctanos"}
         </Link>
         <button
           ref={menuButtonRef}
@@ -81,7 +111,7 @@ export function Header({ name, navigation }: HeaderProps) {
           type="button"
           aria-expanded={open}
           aria-controls="mobile-navigation"
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-label={open ? (isCatalan ? "Tancar menú" : "Cerrar menú") : (isCatalan ? "Obrir menú" : "Abrir menú")}
           onClick={() => setOpen((value) => !value)}
         >
           <span />
@@ -95,14 +125,17 @@ export function Header({ name, navigation }: HeaderProps) {
         aria-hidden={!open}
       >
         <nav aria-label="Navegación móvil">
-          {navigation.map((item, index) => (
+          {localizedNavigation.map((item, index) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               {item.label}
             </Link>
           ))}
-          <Link className="button button-accent" href="/contacto" onClick={() => setOpen(false)}>
-            Solicitar propuesta
+          <Link className="mobile-language-switch" href={languageHref} onClick={() => setOpen(false)}>
+            {isCatalan ? "Cambiar a castellano" : "Canviar a català"}
+          </Link>
+          <Link className="button button-accent" href={isCatalan ? "/ca/contacte" : "/contacto"} onClick={() => setOpen(false)}>
+            {isCatalan ? "Contacta’ns" : "Contáctanos"}
           </Link>
         </nav>
       </div>
